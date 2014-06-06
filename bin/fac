@@ -1,0 +1,3 @@
+#!/usr/bin/ruby
+require "fitbit_alarms_cli"
+FitbitAlarmsCli::Commands.start(ARGV)
