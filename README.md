@@ -12,6 +12,16 @@ Install the gem on your system:
 
 Enjoy `fac` executable
 
+```bash
+Commands:
+  fac add             # Add a new alarm
+  fac help [COMMAND]  # Describe available commands or one specific command
+  fac list            # List all alarms
+  fac remove          # Remove an alarm
+  fac setup           # Start the setup of Fitbit Alarms CLI
+  fac version         # Fitbit Alarms CLI version
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/fitbit_alarms_cli/fork )

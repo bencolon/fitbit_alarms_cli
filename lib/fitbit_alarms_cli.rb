@@ -16,10 +16,10 @@ module FitbitAlarmsCli
     end
 
     desc "list", "List all alarms"
-    option :device, :aliases => :"-D"
+    option :device, :aliases => :"-D", :type => :numeric
     def list
       client = Client.new
-      client.alarms(options)
+      client.list_alarms(options)
     end
 
     desc "add", "Add a new alarm"
@@ -34,9 +34,10 @@ module FitbitAlarmsCli
     end
 
     desc "remove", "Remove an alarm"
+    option :device, :aliases => :"-D", :type => :numeric
     def remove(alarm_id)
       client = Client.new
-      client.remove_alarm(alarm_id)
+      client.remove_alarm(alarm_id, options)
     end
   end
 end
