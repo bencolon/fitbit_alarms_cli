@@ -4,9 +4,19 @@ require 'fitgem'
 module FitbitAlarmsCli
   class Client
     def initialize
-      raise "ERROR" unless File.exists?(Setup::AUTH_FILE_PATH)
+      unless File.exists?(Setup::AUTH_FILE_PATH)
+        puts "You haven't setup FitbitAlarmsCli."
+        puts "Please run `fac setup`."
+        exit
+      end
 
       auth = YAML.load_file(Setup::AUTH_FILE_PATH)
+      unless auth[:consumer_key] && auth[:consumer_secret] && auth[:token] && auth[:secret]
+        puts "FitbitAlarmsCli configuration seems corrupted."
+        puts "Please run `fac setup` again."
+        exit
+      end
+
       @client = Fitgem::Client.new({ :consumer_key => auth[:consumer_key],
                                      :consumer_secret => auth[:consumer_secret],
                                      :token => auth[:token],
