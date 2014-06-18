@@ -21,6 +21,11 @@ module FitbitAlarmsCli
       consumer_infos
       tokens
       congrats
+
+      rescue Exception => e
+        puts "An error has ocurred during authentication. Please try again."
+        puts e.message
+        #puts e.backtrace.inspect
     end
 
     def self.intro
@@ -31,17 +36,21 @@ module FitbitAlarmsCli
     end
 
     def self.consumer_infos
-      puts "Enter the consumer key you got and press enter:" until key = $stdin.gets.strip
+      begin
+        puts "Enter the consumer key you got and press enter:"
+      end while (key = $stdin.gets.strip).empty?
       @auth[:consumer_key] = key
 
-      puts "Enter the consumer secret you got and press enter:" until secret = $stdin.gets.strip
+      begin
+        puts "Enter the consumer secret you got and press enter:"
+      end while (secret = $stdin.gets.strip).empty?
       @auth[:consumer_secret] = secret
 
       @client = Fitgem::Client.new({ :consumer_key => @auth[:consumer_key],
                                      :consumer_secret => @auth[:consumer_secret] })
     end
 
-    def tokens
+    def self.tokens
       request_token = @client.authentication_request_token
 
       puts "Your application is now set up, you now have to authorize this app access you data."
@@ -57,7 +66,7 @@ module FitbitAlarmsCli
       File.open(AUTH_FILE_PATH, "w") {|f| YAML.dump(@auth, f) }
     end
 
-    def congrats
+    def self.congrats
       puts "Congrats, FitbitAlarmsCli is setup!"
       puts "Have a look to the help to enjoy it: `fac help`"
     end
