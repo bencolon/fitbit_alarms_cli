@@ -12,7 +12,7 @@ module FitbitAlarmsCli
 
     desc "setup", "Start the setup of Fitbit Alarms CLI"
     def setup
-      Setup.run
+      Setup.start
     end
 
     desc "list", "List all alarms"

@@ -20,7 +20,7 @@ Commands:
   fac remove          # Remove an alarm
   fac setup           # Start the setup of Fitbit Alarms CLI
   fac version         # Fitbit Alarms CLI version
-```
+``
 
 ## Contributing
 

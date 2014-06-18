@@ -2,9 +2,19 @@ module FitbitAlarmsCli
   module Setup
     AUTH_FILE_PATH = "#{Dir.home}/.fitbit_alarms_cli"
 
-    def self.run
-      raise "ERROR" if File.exists?(AUTH_FILE_PATH)
+    def self.start
+      if File.exists?(AUTH_FILE_PATH)
+        puts "You already setup FitbitAlarmsCli."
+        puts "Are you sure you want to setup it again? yes/no"
+        response = $stdin.gets
+        exit if response.strip != "yes"
+      end
+      run
+    end
 
+    private
+
+    def self.run
       @auth = {}
 
       intro
@@ -12,8 +22,6 @@ module FitbitAlarmsCli
       tokens
       congrats
     end
-
-    private
 
     def self.intro
       puts "First, go register a new Fitbit application at https://dev.fitbit.com/apps/new"
@@ -23,11 +31,11 @@ module FitbitAlarmsCli
     end
 
     def self.consumer_infos
-      puts "Enter the consumer key you got and press enter:"
-      @auth[:consumer_key] = $stdin.gets.strip
+      puts "Enter the consumer key you got and press enter:" until key = $stdin.gets.strip
+      @auth[:consumer_key] = key
 
-      puts "Enter the consumer secret you got and press enter:"
-      @auth[:consumer_secret] = $stdin.gets.strip
+      puts "Enter the consumer secret you got and press enter:" until secret = $stdin.gets.strip
+      @auth[:consumer_secret] = secret
 
       @client = Fitgem::Client.new({ :consumer_key => @auth[:consumer_key],
                                      :consumer_secret => @auth[:consumer_secret] })
@@ -50,7 +58,7 @@ module FitbitAlarmsCli
     end
 
     def congrats
-      puts "Congrats, FitbitAlarmCli is setup!"
+      puts "Congrats, FitbitAlarmsCli is setup!"
       puts "Have a look to the help to enjoy it: `fac help`"
     end
   end
