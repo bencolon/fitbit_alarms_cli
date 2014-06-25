@@ -5,10 +5,12 @@ A CLI gem to setup Fitbit alarms
 [![Gem Version](http://img.shields.io/gem/v/fitbit_alarms_cli.svg)][gem]
 [![Build Status](http://img.shields.io/travis/bencolon/fitbit_alarms_cli.svg)][travis]
 [![Coverage Status](http://img.shields.io/coveralls/bencolon/fitbit_alarms_cli.svg)][coveralls]
+[![Code Climate](http://img.shields.io/codeclimate/github/bencolon/fitbit_alarms_cli.svg)][codeclimate]
 
 [gem]: https://rubygems.org/gems/fitbit_alarms_cli
 [travis]: https://travis-ci.org/bencolon/fitbit_alarms_cli
 [coveralls]: https://coveralls.io/r/bencolon/fitbit_alarms_cli
+[codeclimate]: https://codeclimate.com/github/bencolon/fitbit_alarms_cli
 
 ## Installation
 
