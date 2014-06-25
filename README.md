@@ -2,6 +2,9 @@
 
 A CLI gem to setup Fitbit alarms
 
+[![Gem Version](http://img.shields.io/gem/v/fitbit_alarms_cli.svg)][https://rubygems.org/gems/equalizer]
+[![Build Status](http://img.shields.io/travis/bencolon/fitbit_alarms_cli.svg)][https://travis-ci.org/bencolon/fitbit_alarms_cli]
+
 ## Installation
 
 Install the gem on your system:
