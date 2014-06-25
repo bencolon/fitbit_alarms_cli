@@ -1,5 +1,5 @@
 require 'simplecov'
-#require 'coveralls'
+require 'coveralls'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
@@ -9,6 +9,8 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 SimpleCov.start do
   minimum_coverage 100
 end
+
+Coveralls.wear!
 
 require 'fitbit_alarms_cli'
 require 'minitest'
