@@ -3,17 +3,13 @@ require 'coveralls'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
-  #Coveralls::SimpleCov::Formatter,
+  Coveralls::SimpleCov::Formatter
 ]
-
-SimpleCov.start do
-  minimum_coverage 100
-end
-
-Coveralls.wear!
+SimpleCov.start
 
 require 'fitbit_alarms_cli'
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/mini_test'
 

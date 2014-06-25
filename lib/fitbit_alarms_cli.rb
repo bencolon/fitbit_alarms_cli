@@ -10,6 +10,7 @@ module FitbitAlarmsCli
       puts "Fitbit Alarms CLI - v#{VERSION}"
     end
 
+
     desc "setup", "Run the setup of Fitbit Alarms CLI"
     long_desc <<-LONGDESC
       Guide you to setup Fitbit Alarms CLI across authentication process.
@@ -17,6 +18,7 @@ module FitbitAlarmsCli
     def setup
       Setup.start
     end
+
 
     desc "list", "List all alarms"
     long_desc <<-LONGDESC
@@ -29,6 +31,7 @@ module FitbitAlarmsCli
       client = Client.new
       client.list_alarms(options)
     end
+
 
     desc "add TIME", "Add a new alarm"
     long_desc <<-LONGDESC
@@ -57,6 +60,7 @@ module FitbitAlarmsCli
       client = Client.new
       client.add_alarm(time, options)
     end
+
 
     desc "remove ALARM_ID", "Remove an alarm"
     long_desc <<-LONGDESC
