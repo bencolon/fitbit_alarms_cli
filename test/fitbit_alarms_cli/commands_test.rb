@@ -17,6 +17,7 @@ class FitbitAlarmsCli::CommandsTest < MiniTest::Test
   end
 
   def test_list_command
+    stub_client_init
     FitbitAlarmsCli::Client.any_instance.expects(:list_alarms)
     @commands.list
   end

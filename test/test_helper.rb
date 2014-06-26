@@ -7,6 +7,11 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start
 
+SimpleCov.start do
+  add_filter 'test'
+  #minimum_coverage 100
+end
+
 require 'fitbit_alarms_cli'
 require 'minitest'
 require 'minitest/autorun'
