@@ -78,4 +78,14 @@ class FitbitAlarmsCli::SetupTest < MiniTest::Test
 
     @module.tokens
   end
+
+  def test_congrats
+    $stdout.expects(:puts).twice
+
+    @module.congrats
+  end
+
+  def test_client
+    assert_equal Fitgem::Client, @module.client.class
+  end
 end
