@@ -15,8 +15,6 @@ module FitbitAlarmsCli
     private
 
     def self.run
-      @auth = {}
-
       intro
       consumer_infos
       tokens
@@ -39,19 +37,16 @@ module FitbitAlarmsCli
       begin
         puts "Enter the consumer key you got and press enter:"
       end while (key = $stdin.gets.strip).empty?
-      @auth[:consumer_key] = key
+      auth[:consumer_key] = key
 
       begin
         puts "Enter the consumer secret you got and press enter:"
       end while (secret = $stdin.gets.strip).empty?
-      @auth[:consumer_secret] = secret
-
-      @client = Fitgem::Client.new({ :consumer_key => @auth[:consumer_key],
-                                     :consumer_secret => @auth[:consumer_secret] })
+      auth[:consumer_secret] = secret
     end
 
     def self.tokens
-      request_token = @client.authentication_request_token
+      request_token = client.authentication_request_token
 
       puts "Your application is now set up, you now have to authorize this app access you data."
       puts "Visit the following link, log in if needed, and then authorize the app."
@@ -59,16 +54,25 @@ module FitbitAlarmsCli
 
       puts "When you've authorized that app, enter the verifier code you got and press enter:"
       verifier = $stdin.gets.strip
-      access_token = @client.authorize(request_token.token, request_token.secret, :oauth_verifier => verifier)
-      @auth[:token] = access_token.token
-      @auth[:secret] = access_token.secret
+      access_token = client.authorize(request_token.token, request_token.secret, :oauth_verifier => verifier)
+      auth[:token] = access_token.token
+      auth[:secret] = access_token.secret
 
-      File.open(AUTH_FILE_PATH, "w") {|f| YAML.dump(@auth, f) }
+      File.open(AUTH_FILE_PATH, "w") {|f| YAML.dump(auth, f) }
     end
 
     def self.congrats
       puts "Congrats, FitbitAlarmsCli is setup!"
       puts "Have a look to the help to enjoy it: `fac help`"
+    end
+
+    def self.auth
+      @auth ||= {}
+    end
+
+    def self.client
+      @client ||= Fitgem::Client.new({ :consumer_key => auth[:consumer_key],
+                                       :consumer_secret => auth[:consumer_secret] })
     end
   end
 end

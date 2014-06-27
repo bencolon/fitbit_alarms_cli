@@ -7,6 +7,7 @@ gem 'thor'
 
 group :test do
   gem 'coveralls', :require => false
+  gem 'hashie'
   gem 'minitest', '~> 5.3.5'
   gem 'mocha', :require => false
   gem 'simplecov', :require => false
