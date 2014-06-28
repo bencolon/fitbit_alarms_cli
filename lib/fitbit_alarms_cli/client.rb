@@ -37,13 +37,10 @@ module FitbitAlarmsCli
     end
 
     def add_alarm(time, options)
-      unless /^\d{2}:\d{2}\+\d{2}:\d{2}$/.match(time)
-        puts_and_exit "ERROR: Invalid time. Time should be HH:MM+TZ:00 formatted (ex: 23:30+02:00)."
-      end
-
       device_id = options[:device] || first_device
-      alarms = @client.get_alarms(device_id)
-      puts_and_exit "ERROR: You reached the maximum alarms count (8) on this device." if alarms["trackerAlarms"].count == MAX_ALARMS_COUNT
+
+      check_time_format(time)
+      check_alarms_count(device_id)
 
       settings = { :device_id => device_id,
                    :time => time,
@@ -74,6 +71,17 @@ module FitbitAlarmsCli
 
     def first_device
       @client.devices.first["id"]
+    end
+
+    def check_time_format(time)
+      unless /^\d{2}:\d{2}\+\d{2}:\d{2}$/.match(time)
+        puts_and_exit "ERROR: Invalid time. Time should be HH:MM+TZ:00 formatted (ex: 23:30+02:00)."
+      end
+    end
+
+    def check_alarms_count(device_id)
+      alarms = @client.get_alarms(device_id)
+      puts_and_exit "ERROR: You reached the maximum alarms count (8) on this device." if alarms["trackerAlarms"].count == MAX_ALARMS_COUNT
     end
 
     def check_response(response)
