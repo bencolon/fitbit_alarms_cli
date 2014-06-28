@@ -91,23 +91,27 @@ module FitbitAlarmsCli
     def puts_device_alarms(device_id)
       puts "Device ##{device_id}\n--------------------------------"
       check_response(response = @client.get_alarms(device_id))
-      format_alarms(response["trackerAlarms"])
+      puts_alarms(response["trackerAlarms"])
     end
 
-    def format_alarms(alarms)
+    def puts_alarms(alarms)
       puts_and_exit "  Device not found." unless alarms
       puts_and_exit "  No alarms set on this device." if alarms.empty?
 
       alarms.each do |alarm|
-        label = alarm['label'] ? " (#{alarm['label']})" : ""
-        time = alarm['time']
-        day = alarm['recurring'] ? "" : today_or_tomorrow(time[0..1], time[3..4], time[5..10])
-        recurring = alarm['recurring'] ? " every #{alarm['weekDays']}" : ""
-        enabled = alarm['enabled'] ? 'enabled' : 'disabled'
-        synced = alarm['syncedToDevice'] ? "synced" : "not synced"
-
-        puts "  Alarm ##{alarm['alarmId']}#{label}, #{day}at #{alarm['time']}#{recurring} is #{enabled}/#{synced}."
+        format_alarm(alarm)
       end
+    end
+
+    def format_alarm
+      label = alarm['label'] ? " (#{alarm['label']})" : ""
+      time = alarm['time']
+      day = alarm['recurring'] ? "" : today_or_tomorrow(time[0..1], time[3..4], time[5..10])
+      recurring = alarm['recurring'] ? " every #{alarm['weekDays']}" : ""
+      enabled = alarm['enabled'] ? 'enabled' : 'disabled'
+      synced = alarm['syncedToDevice'] ? "synced" : "not synced"
+
+      puts "  Alarm ##{alarm['alarmId']}#{label}, #{day}at #{alarm['time']}#{recurring} is #{enabled}/#{synced}."
     end
 
     def today_or_tomorrow(h, m, tz)
