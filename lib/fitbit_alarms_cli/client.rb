@@ -103,7 +103,7 @@ module FitbitAlarmsCli
       end
     end
 
-    def format_alarm
+    def format_alarm(alarm)
       label = alarm['label'] ? " (#{alarm['label']})" : ""
       time = alarm['time']
       day = alarm['recurring'] ? "" : today_or_tomorrow(time[0..1], time[3..4], time[5..10])
